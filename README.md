@@ -1,10 +1,3 @@
-Absolutely — below is a **clean, fully formatted, copy-paste–ready `README.md`** with **all the content you provided**, rewritten into proper GitHub Markdown and **without** the broken `contentReference` artifacts.
-
-You can paste this **directly** into GitHub.
-
----
-
-````md
 # Smart Home Monitor  
 ### Monitoring & Alerting System (Bash + Python)
 
