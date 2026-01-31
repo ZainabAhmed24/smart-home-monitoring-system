@@ -230,5 +230,3 @@ curl -X POST -H 'Content-type: application/json' \
 
 Smart Home Monitor demonstrates **systems programming concepts** including automation, scripting, logging, monitoring, and alerting using Linux tools.
 It combines **Bash scripting**, **Python**, **cron scheduling**, and **notification services** to create a realistic and extensible monitoring system.
-
-```
