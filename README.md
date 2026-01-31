@@ -1,47 +1,70 @@
-# Smart Home Monitor  
-### Monitoring + Alerting System (Bash + Python)
+Absolutely — below is a **clean, fully formatted, copy-paste–ready `README.md`** with **all the content you provided**, rewritten into proper GitHub Markdown and **without** the broken `contentReference` artifacts.
 
-Smart Home Monitor is a **monitoring and alerting system** that centralizes simulated smart-home data collection, detects threshold breaches/anomalies, and automatically notifies users. It continuously monitors **appliances/devices, system resource usage, and security-style events**, then logs activity and triggers alerts when needed. :contentReference[oaicite:5]{index=5}
+You can paste this **directly** into GitHub.
 
 ---
 
-## What it does
+````md
+# Smart Home Monitor  
+### Monitoring & Alerting System (Bash + Python)
 
-- **Collects data automatically** (simulated sensor + device logs)
-- **Checks thresholds + detects anomalies**
-  - Threshold comparison (ex: temperature/humidity)
-  - Outlier detection using basic statistics (mean + standard deviation) :contentReference[oaicite:6]{index=6}
-- **Generates alerts** into a centralized alert log
+Smart Home Monitor is a **monitoring and alerting system** that centralizes simulated smart-home data collection, detects threshold breaches and anomalies, and automatically notifies users.  
+It continuously monitors **appliances/devices, system resource usage, and security-style events**, logs activity, and triggers alerts when required.
+
+---
+
+## What It Does
+
+- **Automatically collects data**
+  - Simulated sensor readings and device/system logs
+
+- **Checks thresholds & detects anomalies**
+  - Threshold comparisons (e.g., temperature, humidity)
+  - Outlier detection using basic statistics (mean & standard deviation)
+
+- **Generates alerts**
+  - Centralized alert logging for detected issues
+
 - **Sends notifications**
-  - Email via `sendmail` (or optional `mutt`)
-  - Slack notifications via webhook + `curl` :contentReference[oaicite:7]{index=7}
-- Optional **Python GUI** for demo/testing:
+  - Email alerts via `sendmail` (or optional `mutt`)
+  - Slack notifications using webhooks and `curl`
+
+- **Optional Python GUI (demo/testing)**
   - View alerts
   - View logs
-  - Send test email + Slack notifications :contentReference[oaicite:8]{index=8}
+  - Send test email and Slack notifications
 
 ---
 
 ## System Architecture (High Level)
 
-This project is built around 3 automated stages (scheduled via cron): :contentReference[oaicite:9]{index=9}
+The system operates through **three automated stages**, scheduled using **cron jobs**:
 
-1. **Data Collection (`data_collection.sh`)**  
-   Writes simulated readings into log files (ex: indoor climate, garden, system metrics) and records security/activity-style events. Runs every **2 minutes**. :contentReference[oaicite:10]{index=10}  
+### 1️ Data Collection (`data_collection.sh`)
+- Writes simulated readings to log files (indoor climate, garden, system metrics)
+- Records security and activity-style events  
+- Runs every **2 minutes**
 
-2. **Threshold + Anomaly Check (`threshold_check.sh`)**  
-   Reads logs, compares against thresholds, detects anomalies, and writes alerts to `alerts/alert_log.log`. Updates `alerts/last_run.log`. Runs every **4 minutes**. :contentReference[oaicite:11]{index=11}  
+### 2 Threshold & Anomaly Check (`threshold_check.sh`)
+- Reads logs and compares values against defined thresholds
+- Detects anomalies
+- Writes alerts to `alerts/alert_log.log`
+- Updates `alerts/last_run.log`  
+- Runs every **4 minutes**
 
-3. **Alert Sender (`send_alert.sh`)**  
-   Looks for new alerts since last notification, then sends email + Slack. Updates `alerts/last_emailed.log`. Runs every **6 minutes**. :contentReference[oaicite:12]{index=12}  
+### 2 Alert Sender (`send_alert.sh`)
+- Sends notifications for new alerts
+- Email + Slack integration
+- Updates `alerts/last_emailed.log`  
+- Runs every **6 minutes**
 
-Optional: **GUI (`gui.py`)** for demonstration/testing. :contentReference[oaicite:13]{index=13}
+ Optional: **Python GUI (`gui.py`)** for testing and demonstration.
 
 ---
 
 ## Directory Structure
 
-The system is organized into three main folders: **scripts**, **logs**, and **alerts**. :contentReference[oaicite:14]{index=14}
+The system is organized into three main directories:
 
 ```text
 /root/SmartHomeMonitoring
@@ -60,3 +83,159 @@ The system is organized into three main folders: **scripts**, **logs**, and **al
     ├── alert_log.log
     ├── last_run.log
     └── last_emailed.log
+````
+
+> **Note:** Log and alert files are generated automatically while the system runs.
+
+---
+
+## Prerequisites
+
+* **Bash** 4.0+
+* **Python** 3.6+
+
+### Python Libraries
+
+* `tkinter`
+* `os`
+* `subprocess`
+* `ttk`
+
+### Tools
+
+* `sendmail` – email notifications
+* `curl` – Slack webhook notifications
+* `mutt` (optional) – terminal-based email testing
+
+---
+
+## Installation (Ubuntu-Based Systems)
+
+```bash
+sudo apt update
+sudo apt install python3 python3-tk sendmail curl mutt
+```
+
+---
+
+## Setup (Linux / Ubuntu)
+
+### Create Required Directories
+
+```bash
+mkdir -p /root/SmartHomeMonitoring/{scripts,alerts,logs}
+```
+
+### Make Scripts Executable
+
+```bash
+chmod +x /root/SmartHomeMonitoring/scripts/*.sh
+```
+
+### Test Email Service
+
+```bash
+echo "Test Email" | sendmail root@localhost
+```
+
+ **Slack Setup:**
+Configure your Slack webhook URL inside the alert sender script or via an environment variable.
+
+---
+
+## Automation (Cron Jobs)
+
+Open the root crontab:
+
+```bash
+sudo crontab -e
+```
+
+Add the following entries:
+
+```cron
+*/2 * * * * /root/SmartHomeMonitoring/scripts/data_collection.sh
+*/4 * * * * /root/SmartHomeMonitoring/scripts/threshold_check.sh
+*/6 * * * * /root/SmartHomeMonitoring/scripts/send_alert.sh
+```
+
+* Data collection → every **2 minutes**
+* Threshold check → every **4 minutes**
+* Alert sending → every **6 minutes**
+
+---
+
+## Usage
+
+### Run GUI (Demo / Testing)
+
+```bash
+python3 /root/SmartHomeMonitoring/scripts/gui.py
+```
+
+**Demo Login**
+
+* Username: `admin`
+* Password: `1234`
+
+---
+
+### Run Scripts Manually
+
+#### View Recent Alerts
+
+```bash
+./view_recent_alerts.sh
+```
+
+Displays alerts from the last ~20 minutes.
+
+#### Collect Data
+
+```bash
+./data_collection.sh
+```
+
+#### Check Thresholds
+
+```bash
+./threshold_check.sh
+```
+
+#### Send Alerts
+
+```bash
+./send_alert.sh
+```
+
+#### Test Slack Webhook
+
+```bash
+curl -X POST -H 'Content-type: application/json' \
+--data '{"text":"Test Slack message"}' <webhook_url>
+```
+
+---
+
+## Testing
+
+### Manual Testing
+
+* Run `data_collection.sh` to generate logs
+* Modify thresholds or log values to trigger alerts
+* Use GUI buttons or scripts to test notifications
+
+### Automated Testing (Cron)
+
+* Confirms logs are generated correctly
+* Verifies threshold breaches produce alerts
+* Ensures email and Slack notifications are delivered
+
+---
+
+## 🏁 Summary
+
+Smart Home Monitor demonstrates **systems programming concepts** including automation, scripting, logging, monitoring, and alerting using Linux tools.
+It combines **Bash scripting**, **Python**, **cron scheduling**, and **notification services** to create a realistic and extensible monitoring system.
+
+```
