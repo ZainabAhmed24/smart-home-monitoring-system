@@ -1,11 +1,11 @@
-# 🏠 Smart Home Monitor  
+# Smart Home Monitor  
 ### Monitoring + Alerting System (Bash + Python)
 
 Smart Home Monitor is a **monitoring and alerting system** that centralizes simulated smart-home data collection, detects threshold breaches/anomalies, and automatically notifies users. It continuously monitors **appliances/devices, system resource usage, and security-style events**, then logs activity and triggers alerts when needed. :contentReference[oaicite:5]{index=5}
 
 ---
 
-## ✅ What it does
+## What it does
 
 - **Collects data automatically** (simulated sensor + device logs)
 - **Checks thresholds + detects anomalies**
@@ -22,7 +22,7 @@ Smart Home Monitor is a **monitoring and alerting system** that centralizes simu
 
 ---
 
-## 🧱 System Architecture (High Level)
+## System Architecture (High Level)
 
 This project is built around 3 automated stages (scheduled via cron): :contentReference[oaicite:9]{index=9}
 
@@ -35,11 +35,11 @@ This project is built around 3 automated stages (scheduled via cron): :contentRe
 3. **Alert Sender (`send_alert.sh`)**  
    Looks for new alerts since last notification, then sends email + Slack. Updates `alerts/last_emailed.log`. Runs every **6 minutes**. :contentReference[oaicite:12]{index=12}  
 
-✅ Optional: **GUI (`gui.py`)** for demonstration/testing. :contentReference[oaicite:13]{index=13}
+Optional: **GUI (`gui.py`)** for demonstration/testing. :contentReference[oaicite:13]{index=13}
 
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 The system is organized into three main folders: **scripts**, **logs**, and **alerts**. :contentReference[oaicite:14]{index=14}
 
