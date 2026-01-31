@@ -3,7 +3,7 @@
 
 ALERT_FILE="/root/SmartHomeMonitoring/alerts/alert_log.log"
 LAST_EMAILED_FILE="/root/SmartHomeMonitoring/alerts/last_emailed.log"
-SLACK_WEBHOOK_URL="https://hooks.slack.com/services/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"
+SLACK_WEBHOOK_URL=
 
 # Get the last emailed timestamp
 if [ -f "$LAST_EMAILED_FILE" ]; then
